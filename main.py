@@ -28,7 +28,7 @@ unzipfile(inputfilename, rootdirectory+ "/" + filenameonly)
 
 SysInfoFile = glob.glob(rootdirectory + "/" + filenameonly + "/*System_Information.txt")
 
-# Using basename get only the file name. Since this returns a list using [0]
+# Using basename to get only the file name. Since this returns a list using [0]
 # then looking for the first occurence of "_" and got the list in return
 # again fetching the 0th element
 
