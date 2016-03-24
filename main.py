@@ -1,6 +1,9 @@
-import zipfile
+# Using a function to extract the zip file since we will be calling this multiple times
 
-filetoextract = zipfile.ZipFile("Data/Dummy/Test.zip", 'r')
-destdir = "Data/Dummy/Extract"
-filetoextract.extractall(destdir)
-filetoextract.close()
+import zipfile
+def unzipfile(filename,destfolder):
+    filetoextract = zipfile.ZipFile(filename, 'r')
+    destdir = destfolder
+    filetoextract.extractall(destdir)
+    filetoextract.close()
+
