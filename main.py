@@ -66,8 +66,8 @@ outputfile = open(rootdirectory + "/finaloutput.txt","w", encoding="utf-16")
 # Reading System Information file here
 # In order to avoid reading the file multiple times creating a list of values that we need
 
-sysinfolist =["Host Name:", "OS Name:", "System Boot Time:", "System Manufacturer:","System Model:"\
-              "System Type:", "Processor(s):", "BIOS Version:", "Time Zone:", "Total Physical Memory:" \
+sysinfolist =["Host Name:", "OS Name:", "System Boot Time:", "System Manufacturer:","System Model:"
+              "System Type:", "Processor(s):", "BIOS Version:", "Time Zone:", "Total Physical Memory:"
               "Available Physical Memory:", "Virtual Memory: Max Size:", "Virtual Memory: Available:"]
 
 # Now reading the file after scanning for System_Information.txt
