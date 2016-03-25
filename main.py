@@ -39,7 +39,7 @@ os.rename(rootdirectory+ "/" + filenameonly, rootdirectory+ "/" + FirstServerNam
 servernames =[]
 
 for clusterlog in glob.glob(rootdirectory + "/" + FirstServerName + "/*_cluster.log"):
-    servernames.append(basename(clusterlog).split(("."),1)[0])
+    servernames.append(basename(clusterlog).split(("."),1)[0].upper())
 
 # Got the server names. Now checking if the corresponding folders exist
 # If don't exist create it, prompt the user for the cab file
@@ -57,8 +57,11 @@ for servername in servernames:
 print("All files extracted")
 
 # Now creating the output file to which will contain all the data generated from now on
+# adding encoding="utf-16" because while writing to the file, it would fail with the following error
+# outputfile.write(line)
+#   TypeError: a bytes - like object is required, not 'str'
 
-outputfile = open(rootdirectory + "/finaloutput.txt","wb")
+outputfile = open(rootdirectory + "/finaloutput.txt","w", encoding="utf-16")
 
 # Reading System Information file here
 # In order to avoid reading the file multiple times creating a list of values that we need
@@ -70,12 +73,19 @@ sysinfolist =["Host Name:", "OS Name:", "System Boot Time:", "System Manufacture
 # Now reading the file after scanning for System_Information.txt
 
 for servername in servernames:
+    outputfile.write("Details of: " + servername + "\n"*2)
     sysinfofile = glob.glob(rootdirectory + "/" + servername.upper() + "\*System_Information.txt")[0]
     print(sysinfofile)
-    with open(sysinfofile) as file:
+
+# adding encoding ='utf-16' because with normal OPEN, each word would have an extra space between characters
+# e.g. HOSTNAME would come out as H O S T N A M E. This was causing the IN statement to never execute!
+
+    with open(sysinfofile, "r", encoding="utf-16") as file:
         for line in file:
             for item in sysinfolist:
                 if item in line:
-                    print(line)
+                    outputfile.write(line)
+    outputfile.write("\n"*2)
+print("System Information printed")
 # Closing the output file
 outputfile.close()
