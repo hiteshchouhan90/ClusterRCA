@@ -57,7 +57,7 @@ for servername in servernames:
 print("All files extracted")
 
 # Now creating the output file to which will contain all the data generated from now on
-# adding encoding="utf-16" because while writing to the file, it would fail with the following error
+# adding encoding="utf-16" because while writing to the file, it was failing with the following error
 # outputfile.write(line)
 #   TypeError: a bytes - like object is required, not 'str'
 
