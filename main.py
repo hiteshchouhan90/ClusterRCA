@@ -75,7 +75,7 @@ sysinfolist =["Host Name:", "OS Name:", "System Boot Time:", "System Manufacture
 for servername in servernames:
     outputfile.write("Details of: " + servername + "\n"*2)
     sysinfofile = glob.glob(rootdirectory + "/" + servername.upper() + "\*System_Information.txt")[0]
-    print(sysinfofile)
+
 
 # adding encoding ='utf-16' because with normal OPEN, each word would have an extra space between characters
 # e.g. HOSTNAME would come out as H O S T N A M E. This was causing the IN statement to never execute!
