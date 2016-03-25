@@ -18,9 +18,6 @@ rootdirectory = "C:/Pradeep/data/extract/" + filenameonly
 if not os.path.exists(rootdirectory):
     os.makedirs(rootdirectory+ "/" + filenameonly)
 
-print(rootdirectory + "/" + filenameonly)
-print(inputfilename.replace("\\","/"))
-
 unzipfile(inputfilename, rootdirectory+ "/" + filenameonly)
 
 # Now navigating to that directory and picking "ServerName_System_Information.txt"
@@ -33,9 +30,28 @@ SysInfoFile = glob.glob(rootdirectory + "/" + filenameonly + "/*System_Informati
 # again fetching the 0th element
 
 FirstServerName = basename(SysInfoFile[0]).split("_",1)[0]
-print(FirstServerName)
 
 # Now renaming the folder using newly got ServerName
 
 os.rename(rootdirectory+ "/" + filenameonly, rootdirectory+ "/" + FirstServerName)
 
+# Here finding the server names based on the *cluster.log files
+servernames =[]
+
+for clusterlog in glob.glob(rootdirectory + "/" + FirstServerName + "/*_cluster.log"):
+    servernames.append(basename(clusterlog).split(("."),1)[0])
+
+# Got the server names. Now checking if the corresponding folders exist
+# If don't exist create it, prompt the user for the cab file
+
+
+for servername in servernames:
+    if os.path.exists(rootdirectory +"/" + servername.upper()):
+        print("Folder " + servername + " exists. Not doing anything here")
+    else:
+        os.makedirs(rootdirectory+ "/" + servername.upper())
+        print("Enter the path of the new zip file for server: " + servername.upper())
+        inputfilename = input()
+        unzipfile(inputfilename, rootdirectory + "/" + servername.upper())
+
+print("All files extracted")
