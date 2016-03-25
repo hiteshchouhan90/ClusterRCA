@@ -55,3 +55,27 @@ for servername in servernames:
         unzipfile(inputfilename, rootdirectory + "/" + servername.upper())
 
 print("All files extracted")
+
+# Now creating the output file to which will contain all the data generated from now on
+
+outputfile = open(rootdirectory + "/finaloutput.txt","wb")
+
+# Reading System Information file here
+# In order to avoid reading the file multiple times creating a list of values that we need
+
+sysinfolist =["Host Name:", "OS Name:", "System Boot Time:", "System Manufacturer:","System Model:"\
+              "System Type:", "Processor(s):", "BIOS Version:", "Time Zone:", "Total Physical Memory:" \
+              "Available Physical Memory:", "Virtual Memory: Max Size:", "Virtual Memory: Available:"]
+
+# Now reading the file after scanning for System_Information.txt
+
+for servername in servernames:
+    sysinfofile = glob.glob(rootdirectory + "/" + servername.upper() + "\*System_Information.txt")[0]
+    print(sysinfofile)
+    with open(sysinfofile) as file:
+        for line in file:
+            for item in sysinfolist:
+                if item in line:
+                    print(line)
+# Closing the output file
+outputfile.close()
