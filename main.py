@@ -36,5 +36,6 @@ FirstServerName = basename(SysInfoFile[0]).split("_",1)[0]
 print(FirstServerName)
 
 # Now renaming the folder using newly got ServerName
-#
+
 os.rename(rootdirectory+ "/" + filenameonly, rootdirectory+ "/" + FirstServerName)
+
