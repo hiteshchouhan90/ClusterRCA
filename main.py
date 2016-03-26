@@ -17,6 +17,8 @@ rootdirectory = "C:/Pradeep/data/extract/" + filenameonly
 
 if not os.path.exists(rootdirectory):
     os.makedirs(rootdirectory+ "/" + filenameonly)
+else:
+    os.remove(rootdirectory)
 
 unzipfile(inputfilename, rootdirectory+ "/" + filenameonly)
 
@@ -73,7 +75,7 @@ sysinfolist =["Host Name:", "OS Name:", "System Boot Time:", "System Manufacture
 # Now reading the file after scanning for System_Information.txt
 
 for servername in servernames:
-    outputfile.write("Details of: " + servername + "\n"*2)
+    outputfile.write("~"*20+"\n" + "Details of: " + servername + "\n"+ "~"*20 + "\n")
     sysinfofile = glob.glob(rootdirectory + "/" + servername.upper() + "\*System_Information.txt")[0]
 
 
@@ -86,6 +88,45 @@ for servername in servernames:
                 if item in line:
                     outputfile.write(line)
     outputfile.write("\n"*2)
-print("System Information printed")
+
+# Here getting the SQL Server information from the ERRORLOG file
+# Also creating a ignore list for removing noise from the output
+
+    ErrorLogIgnoreList = ["(c) Microsoft Corporation", "All rights reserved.", "Server process ID is",
+                          "System Manufacturer:", "Authentication mode is", "The service account is",
+                          "This instance of SQL Server last reported using", "Using dynamic lock allocation",
+                          "Software Usage Metrics", "Starting up database", "CLR version",
+                          "finished without errors on", "Resource governor reconfiguration succeeded.",
+                          "SQL Server Audit", "was started by login", "Common language runtime (CLR) functionality initialized using"
+                          ]
+
+    outputfile.write("~"*20+"\n" + "SQL Server Details: " + servername + "\n"+ "~"*20 + "\n" * 2)
+
+# Using a list to save lines up to NETBIOS name. Then removing with the lines with words in IgnoreList
+# This surely needs improvement
+
+    trimmedlog =[]
+    errorlogs = glob.glob(rootdirectory + "/" + servername.upper() + "\*_ERRORLOG")
+    for errorlog in errorlogs:
+        with open(errorlog,"r", encoding="utf-16") as InstanceDetails:
+            for line in InstanceDetails:
+                trimmedlog.append(line)
+                if "The NETBIOS name of the local node" in line:
+                        break
+        outputfile.write("\n" * 2)
+
+# Now removing the lines which contain the words from the IgnoreList
+        for line in trimmedlog:
+            print(line)
+            for item in ErrorLogIgnoreList:
+                print(item)
+                if item in line:
+                    trimmedlog.remove(line)
+
+# Now printing the items in the trimmedlog list.
+        for line in trimmedlog:
+            outputfile.write(line)
+        outputfile.write("\n" * 2)
+
 # Closing the output file
 outputfile.close()
