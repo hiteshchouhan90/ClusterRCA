@@ -28,6 +28,8 @@ def CreateFirstFolder(inputfilename, filenameonly,rootdirectory):
     SysInfoFile = glob.glob(rootdirectory + "/" + filenameonly + "/*System_Information.txt")
     FirstServerName = basename(SysInfoFile[0]).split("_", 1)[0]
     os.rename(rootdirectory + "/" + filenameonly, rootdirectory + "/" + FirstServerName)
+    print("Created folder " + rootdirectory + "/" + FirstServerName)
+
     return FirstServerName
 
 def CreateNextFolders(rootdirectory, FirstServerName, filenameonly):
@@ -48,6 +50,6 @@ def CreateNextFolders(rootdirectory, FirstServerName, filenameonly):
             print("Enter the path of the new zip file for server: " + servername.upper())
             inputfilename = input() or "C:\Pradeep\Data\SDP2.cab"
             unzipfile(inputfilename, rootdirectory + "/" + servername.upper())
-            print("All files extracted")
+            print("Created folder " + rootdirectory +  "/" + servername.upper())
 
     return servernames
