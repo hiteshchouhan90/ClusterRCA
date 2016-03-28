@@ -26,4 +26,3 @@ def GetSysInfo(rootdirectory, servernames,outputfile):
                         outputfile.write(line)
         outputfile.write("\n" * 2)
         print("Got System Information for " + servername.upper())
-
