@@ -1,6 +1,7 @@
 from SystemInfo import GetSysInfo
 from unzipfiles import unzipfile
 from SQLServerInfo import GetSQLInfo
+from FLTMC import GetFLTMC
 import CreateFolders
 import sys
 import os
@@ -33,7 +34,7 @@ outputfile = open(rootdirectory + "/finaloutput.txt","w", encoding="utf-16")
 
 GetSysInfo(rootdirectory, servernames,outputfile)
 GetSQLInfo(rootdirectory, servernames,outputfile)
-
+GetFLTMC(rootdirectory, servernames,outputfile)
 
 # Closing the output file
 print("All done.. Closing the output file")
