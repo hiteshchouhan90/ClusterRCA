@@ -1,0 +1,42 @@
+Get all the nodes - Done
+
+Get all the instances - Ravi
+
+Get the dependencies for resources - Ravi
+
+Ask for instance name - Ravi
+
+Ask for time duration - Done
+
+Find the node hosting the instance - Pradeep
+
+System Information for all nodes  - Done
+
+SQL Server information for all nodes - Done
+
+SQL Server Configuration from all instances - Ravi
+                SP_Configure
+                dm_os_cluster_nodes
+                Loaded Modules
+                Wait Stats TOP 5 - Try to explain it to user             
+
+Processes  - 3rd party services should be the focus - Ravi
+
+Drivers - Storage & Network drivers
+
+Parse Cluster log - Hitesh
+
+Application event log - Hitesh
+
+System Event log - Pradeep
+
+Fltmc
+
+Hotfixes
+
+Errorlog - List of list, errors.h, IgnoreList - Hitesh
+
+
+Future Versions:
+****************
+UsersRights - example: Lock pages in memory does not contain SQL Server service account, instant file initialization
