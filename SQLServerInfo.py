@@ -43,4 +43,3 @@ def GetSQLInfo(rootdirectory, servernames,outputfile):
                 outputfile.write(line)
             outputfile.write("\n" * 2)
         print("Got ERROR LOG for " + servername.upper())
-
