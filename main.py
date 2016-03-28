@@ -34,6 +34,7 @@ outputfile = open(rootdirectory + "/finaloutput.txt","w", encoding="utf-16")
 GetSysInfo(rootdirectory, servernames,outputfile)
 GetSQLInfo(rootdirectory, servernames,outputfile)
 
+
 # Closing the output file
 print("All done.. Closing the output file")
 outputfile.close()
