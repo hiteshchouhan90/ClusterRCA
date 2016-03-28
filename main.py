@@ -5,13 +5,18 @@ from os.path import basename
 import glob
 
 print("Enter the input file name: ")
-inputfilename = input()
+inputfilename = input() or "C:\Pradeep\Data\SDP.cab" # Adding the OR to avoid typing for now
 
 # Here creating a new directory with the zip file name with the assumption that it will be mostly unique
 # Then creating a sub-directory with the same name. This will be renamed to the ServerName since we don't have it yet
 
 filenameonly = basename(inputfilename)
 filenameonly = filenameonly[:filenameonly.find(".cab")]
+
+# Getting the time frame of the issue
+print("Enter the time frame of the issue in yyyy/mm/dd format:")
+startdate = input("Start date:") or "2016/02/28"
+enddate = input("End date:") or "2016/02/29"
 
 rootdirectory = "C:/Pradeep/data/extract/" + filenameonly
 
@@ -53,7 +58,7 @@ for servername in servernames:
     else:
         os.makedirs(rootdirectory+ "/" + servername.upper())
         print("Enter the path of the new zip file for server: " + servername.upper())
-        inputfilename = input()
+        inputfilename = input() or "C:\Pradeep\Data\SDP2.cab"
         unzipfile(inputfilename, rootdirectory + "/" + servername.upper())
 
 print("All files extracted")
@@ -111,15 +116,14 @@ for servername in servernames:
         with open(errorlog,"r", encoding="utf-16") as InstanceDetails:
             for line in InstanceDetails:
                 trimmedlog.append(line)
-                if "The NETBIOS name of the local node" in line:
+                if "Server name is " in line:
                         break
         outputfile.write("\n" * 2)
 
 # Now removing the lines which contain the words from the IgnoreList
         for line in trimmedlog:
-            print(line)
+
             for item in ErrorLogIgnoreList:
-                print(item)
                 if item in line:
                     trimmedlog.remove(line)
 
