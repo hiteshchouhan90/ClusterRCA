@@ -31,7 +31,6 @@ def GetSQLInfo(rootdirectory, servernames,outputfile):
                         break
             outputfile.write("\n" * 2)
 
-            # Now removing the lines which contain the words from the IgnoreList
             for line in trimmedlog:
 
                 for item in ErrorLogIgnoreList:
