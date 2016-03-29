@@ -2,12 +2,16 @@ from SystemInfo import GetSysInfo
 from unzipfiles import unzipfile
 from SQLServerInfo import GetSQLInfo
 from FLTMC import GetFLTMC
+from Hotfix import GetHotFix
 import CreateFolders
 import sys
 import os
+import time
 from os.path import basename
 
 import glob
+
+start_time = time.time()
 
 print("Enter the input file name: ")
 inputfilename = input() or "C:\Pradeep\Data\SDP.cab" # Adding the OR to avoid typing for now
@@ -35,7 +39,9 @@ outputfile = open(rootdirectory + "/finaloutput.txt","w", encoding="utf-16")
 GetSysInfo(rootdirectory, servernames,outputfile)
 GetSQLInfo(rootdirectory, servernames,outputfile)
 GetFLTMC(rootdirectory, servernames,outputfile)
+GetHotFix(rootdirectory, servernames,outputfile)
 
 # Closing the output file
 print("All done.. Closing the output file")
 outputfile.close()
+print("--- %s seconds ---" % round((time.time() - start_time),2))
