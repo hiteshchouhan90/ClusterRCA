@@ -26,19 +26,21 @@ def GetSQLInfo(rootdirectory, servernames,outputfile):
         for errorlog in errorlogs:
             with open(errorlog, "r", encoding="utf-16") as InstanceDetails:
                 for line in InstanceDetails:
-                    trimmedlog.append(line)
-                    if "Server name is " in line:
+                    #trimmedlog.append(line)
+                    if not any(item in line for item in ErrorLogIgnoreList):
+                        outputfile.write(line)
+                    if "The NETBIOS name of the local node" in line:
                         break
             outputfile.write("\n" * 2)
 
-            for line in trimmedlog:
+            # for line in trimmedlog:
+            #
+            #     for item in ErrorLogIgnoreList:
+            #         if item in line:
+            #             trimmedlog.remove(line)
+            #
+            #             # Now printing the items in the trimmedlog list.
+            # for line in trimmedlog:
+            #     outputfile.write(line)
 
-                for item in ErrorLogIgnoreList:
-                    if item in line:
-                        trimmedlog.remove(line)
-
-                        # Now printing the items in the trimmedlog list.
-            for line in trimmedlog:
-                outputfile.write(line)
-            outputfile.write("\n" * 2)
         print("Got ERROR LOG for " + servername.upper())

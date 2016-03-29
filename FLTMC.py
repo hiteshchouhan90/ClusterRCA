@@ -1,6 +1,7 @@
 import sys
 import os
 import glob
+import re
 
 """
     Definition::
@@ -20,9 +21,10 @@ def GetFLTMC(rootdirectory, servernames,outputfile):
                 for line in FilterDetails:
                     if "Filter Name" in line:
                         start =1
-                    if "----------------------------------------------------------------------------------------------" in line:
+                    if "--------------------------------------------------" in line:
                         start = 0
                     if start==1:
-                        outputfile.write(line)
+                        if not any (item in line for item in FLTMCIgnoreList):
+                            outputfile.write(line)
         outputfile.write("\n" * 2)
     print("Got the filter driver information\n")
