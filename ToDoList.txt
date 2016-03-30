@@ -28,7 +28,7 @@ Parse Cluster log - Hitesh
 
 Application event log - Hitesh
 
-System Event log - Pradeep
+System Event log - Pradeep (Done)
 
 Fltmc   -   Pradeep (Done)
 
