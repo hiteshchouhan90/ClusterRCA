@@ -10,7 +10,8 @@ import re
 """
 
 def GetFLTMC(rootdirectory, servernames,outputfile):
-    FLTMCIgnoreList =["FsDepends","CsvNSFlt","CsvFlt","CCFFilter","ResumeKeyFilter","svhdxflt","luafv","npsvctrig"]
+    FLTMCIgnoreList =["FsDepends","CsvNSFlt","CsvFlt","CCFFilter","ResumeKeyFilter","svhdxflt","luafv","npsvctrig"
+                      ,"VirtFile","msnfsflt","Quota","Datascrn"]
 
     for servername in servernames:
         outputfile.write("~" * 20 + "\n" + "Filter Drivers loaded on " + servername + "\n" + "~" * 20 + "\n" * 2)
@@ -25,6 +26,6 @@ def GetFLTMC(rootdirectory, servernames,outputfile):
                         start = 0
                     if start==1:
                         if not any (item in line for item in FLTMCIgnoreList):
-                            outputfile.write(line)
+                            outputfile.write(line[:46]+"\n")
         outputfile.write("\n" * 2)
     print("Got the filter driver information\n")

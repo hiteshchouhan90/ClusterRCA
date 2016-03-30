@@ -32,7 +32,7 @@ System Event log - Pradeep
 
 Fltmc   -   Pradeep (Done)
 
-Hotfixes
+Hotfixes - Pradeep (Done)
 
 Errorlog - List of list, errors.h, IgnoreList - Hitesh
 

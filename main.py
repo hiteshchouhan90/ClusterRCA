@@ -3,15 +3,17 @@ from unzipfiles import unzipfile
 from SQLServerInfo import GetSQLInfo
 from FLTMC import GetFLTMC
 from Hotfix import GetHotFix
+from SystemEventLog import GetSystemLog
 import CreateFolders
 import sys
 import os
 import time
+from datetime import datetime, timedelta
 from os.path import basename
 
 import glob
 
-start_time = time.time()
+
 
 print("Enter the input file name: ")
 inputfilename = input() or "C:\Pradeep\Data\SDP.cab" # Adding the OR to avoid typing for now
@@ -20,10 +22,17 @@ filenameonly = basename(inputfilename)
 filenameonly = filenameonly[:filenameonly.find(".cab")]
 
 # Getting the time frame of the issue
-print("Enter the time frame of the issue in yyyy/mm/dd format:")
-startdate = input("Start date:") or "2016/02/28"
-enddate = input("End date:") or "2016/02/29"
+print("Enter the time frame of the issue in \"yyyy/mm/dd HH:mm\" format:")
+startdate = input("Start date:") or "2016/02/21 12:21"
+enddate = input("End date:") or "2016/02/21 14:21"
 
+# Adding/subtracting  two hours as buffer
+
+startdate = datetime.strptime(startdate, "%Y/%m/%d %H:%M") - timedelta(hours=2)
+enddate = datetime.strptime(enddate, "%Y/%m/%d %H:%M") + timedelta(hours=2)
+
+
+start_time = time.time()
 rootdirectory = "C:/Pradeep/data/extract/" + filenameonly
 
 FirstServerName= CreateFolders.CreateFirstFolder(inputfilename, filenameonly, rootdirectory)
@@ -40,6 +49,7 @@ GetSysInfo(rootdirectory, servernames,outputfile)
 GetSQLInfo(rootdirectory, servernames,outputfile)
 GetFLTMC(rootdirectory, servernames,outputfile)
 GetHotFix(rootdirectory, servernames,outputfile)
+GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate)
 
 # Closing the output file
 print("All done.. Closing the output file")

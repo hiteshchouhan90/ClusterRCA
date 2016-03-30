@@ -6,7 +6,6 @@ import re
 def GetHotFix(rootdirectory, servernames,outputfile):
     FinalList = []
     for servername in servernames:
-        outputfile.write("~" * 20 + "\n" + "Filter Drivers loaded on " + servername + "\n" + "~" * 20 + "\n" * 2)
         hotfixfile = glob.glob(rootdirectory + "/" + servername.upper() + "/*_Hotfixes.TXT")[0]
 
 
@@ -33,9 +32,13 @@ def GetHotFix(rootdirectory, servernames,outputfile):
     #Comparing the dynamically created lists
     i=0
     while i<len(FinalList):
-        print("Hotfixes missing on Server: " + FinalList[i][0])
-        print(set(FinalList[i][1:]) - set(FinalList[i - 1][1:]))
+        outputfile.write("~" * 20 +"\n")
+        outputfile.write("Hotfixes missing on Server: " + FinalList[i][0])
+        outputfile.write("\n" + "~" * 20 +"\n")
+        outputfile.write(str(set(FinalList[i][1:]) - set(FinalList[i - 1][1:])))
+        outputfile.write("\n"*2)
         i=i+1
 
+    print("Got hotfix information")
     #
     #
