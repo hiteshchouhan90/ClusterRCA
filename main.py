@@ -4,6 +4,7 @@ from SQLServerInfo import GetSQLInfo
 from FLTMC import GetFLTMC
 from Hotfix import GetHotFix
 from SystemEventLog import GetSystemLog
+from NETBIOSHistory import GetNETBIOSHistory
 import CreateFolders
 import sys
 import os
@@ -23,9 +24,16 @@ filenameonly = filenameonly[:filenameonly.find(".cab")]
 
 # Getting the time frame of the issue
 print("Enter the time frame of the issue in \"yyyy/mm/dd HH:mm\" format:")
-startdate = input("Start date:") or "2016/02/21 12:21"
-enddate = input("End date:") or "2016/02/21 14:21"
+startdate = input("Start date:\n") or "2016/02/21 12:21"
+enddate = input("End date:\n") or "2016/02/21 14:21"
 
+"""
+Some inputs for testing
+
+C:\Pradeep\Data\SDP_Single.cab
+2016/03/20 00:00
+2016/03/20 05:00
+"""
 # Adding/subtracting  two hours as buffer
 
 startdate = datetime.strptime(startdate, "%Y/%m/%d %H:%M") - timedelta(hours=2)
@@ -49,6 +57,7 @@ GetSysInfo(rootdirectory, servernames,outputfile)
 GetSQLInfo(rootdirectory, servernames,outputfile)
 GetFLTMC(rootdirectory, servernames,outputfile)
 GetHotFix(rootdirectory, servernames,outputfile)
+GetNETBIOSHistory(rootdirectory, servernames,outputfile)
 GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate)
 
 # Closing the output file

@@ -28,4 +28,4 @@ def GetFLTMC(rootdirectory, servernames,outputfile):
                         if not any (item in line for item in FLTMCIgnoreList):
                             outputfile.write(line[:46]+"\n")
         outputfile.write("\n" * 2)
-    print("Got the filter driver information\n")
+    print("Got the filter driver information")

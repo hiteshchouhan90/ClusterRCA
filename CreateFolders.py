@@ -40,7 +40,10 @@ def CreateNextFolders(rootdirectory, FirstServerName, filenameonly):
 
     """
     for clusterlog in glob.glob(rootdirectory + "/" + FirstServerName + "/*_cluster.log"):
-        servernames.append(basename(clusterlog).split(("."), 1)[0].upper())
+        srvname = basename(clusterlog).split(("_"), 1)[0].upper()
+        if "." in srvname:
+           srvname = srvname.split(".")[0]
+        servernames.append(srvname)
 
     for servername in servernames:
         if os.path.exists(rootdirectory + "/" + servername.upper()):
