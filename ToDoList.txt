@@ -1,4 +1,4 @@
-Get all the nodes - Done
+Get all the nodes - Pradeep (Done)
 
 Get all the instances - Ravi
 
@@ -6,13 +6,13 @@ Get the dependencies for resources - Ravi
 
 Ask for instance name - Ravi
 
-Ask for time duration - Done
+Ask for time duration - Pradeep (Done)
 
-Find the node hosting the instance - Pradeep
+Find the node hosting the instance - Pradeep (Done)
 
-System Information for all nodes  - Done
+System Information for all nodes  - Pradeep (Done)
 
-SQL Server information for all nodes - Done
+SQL Server information for all nodes - Pradeep (Done)
 
 SQL Server Configuration from all instances - Ravi
                 SP_Configure
@@ -39,4 +39,5 @@ Errorlog - List of list, errors.h, IgnoreList - Hitesh
 
 Future Versions:
 ****************
+Cluster Dependency Report 
 UsersRights - example: Lock pages in memory does not contain SQL Server service account, instant file initialization
