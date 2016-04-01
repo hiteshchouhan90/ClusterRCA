@@ -17,7 +17,7 @@ def GetNETBIOSHistory(rootdirectory, servernames,outputfile):
 
         InstanceNameSet = set(InstanceName)
         for l in InstanceNameSet:
-            outputfile.write("~" * 20 + "\n" + "Owning NETBIOS name history for " + l + " instance \n" + "~" * 20 + "\n" * 2)
+            outputfile.write("~" * 20 + "\n" + "NETBIOS name history for " + l + " instance \n" + "~" * 20 + "\n" * 2)
             ErrorLogFiles = glob.glob(rootdirectory + "/" + servername.upper() + "\*_" + l  +"*_ERRORLOG*")
             for ErrorLog in ErrorLogFiles:
                 with open(ErrorLog, "r", encoding="utf-16") as ErrorLogRead:

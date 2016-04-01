@@ -22,7 +22,7 @@ SQL Server Configuration from all instances - Ravi
 
 Processes  - 3rd party services should be the focus - Ravi
 
-Drivers - Storage & Network drivers
+Drivers - Storage & Network drivers - Pradeep (done)
 
 Parse Cluster log - Hitesh
 

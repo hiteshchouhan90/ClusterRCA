@@ -5,6 +5,7 @@ from FLTMC import GetFLTMC
 from Hotfix import GetHotFix
 from SystemEventLog import GetSystemLog
 from NETBIOSHistory import GetNETBIOSHistory
+from StorNetDrivers import GetStorageNetworkDrivers
 import CreateFolders
 import sys
 import os
@@ -56,6 +57,7 @@ outputfile = open(rootdirectory + "/finaloutput.txt","w", encoding="utf-16")
 GetSysInfo(rootdirectory, servernames,outputfile)
 GetSQLInfo(rootdirectory, servernames,outputfile)
 GetFLTMC(rootdirectory, servernames,outputfile)
+GetStorageNetworkDrivers(rootdirectory, servernames,outputfile)
 GetHotFix(rootdirectory, servernames,outputfile)
 GetNETBIOSHistory(rootdirectory, servernames,outputfile)
 GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate)
