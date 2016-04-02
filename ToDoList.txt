@@ -36,8 +36,9 @@ Hotfixes - Pradeep (Done)
 
 Errorlog - List of list, errors.h, IgnoreList - Hitesh
 
+Cluster Dependency Report  - Pradeep (done)
 
 Future Versions:
 ****************
-Cluster Dependency Report 
+
 UsersRights - example: Lock pages in memory does not contain SQL Server service account, instant file initialization

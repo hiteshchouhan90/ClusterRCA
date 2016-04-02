@@ -6,6 +6,7 @@ from Hotfix import GetHotFix
 from SystemEventLog import GetSystemLog
 from NETBIOSHistory import GetNETBIOSHistory
 from StorNetDrivers import GetStorageNetworkDrivers
+from ClusterDependencies import GetClusterDependencies
 import CreateFolders
 import sys
 import os
@@ -59,6 +60,7 @@ GetSQLInfo(rootdirectory, servernames,outputfile)
 GetFLTMC(rootdirectory, servernames,outputfile)
 GetStorageNetworkDrivers(rootdirectory, servernames,outputfile)
 GetHotFix(rootdirectory, servernames,outputfile)
+GetClusterDependencies(rootdirectory, servernames,outputfile)
 GetNETBIOSHistory(rootdirectory, servernames,outputfile)
 GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate)
 
