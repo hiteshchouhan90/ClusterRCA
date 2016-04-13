@@ -17,7 +17,12 @@ def GetSQLInfo(rootdirectory, servernames,outputfile):
                           "Software Usage Metrics", "Starting up database", "CLR version",
                           "finished without errors on", "Resource governor reconfiguration succeeded.",
                           "SQL Server Audit", "was started by login",
-                          "Common language runtime (CLR) functionality initialized using"
+                          "Common language runtime (CLR) functionality initialized using",
+                          "DbMgrPartnerCommitPolicy::SetSyncState:", "transactions rolled forward in database",
+                          "transactions rolled back in database","Error: 35262, Severity: 17, State: 1",
+                          "Skipping the default startup of database","Error: 18456, Severity: 14",
+                          "Login failed for user ","Log was backed up.",
+                          "AlwaysOn Availability Groups connection with "
                           ]
     for servername in servernames:
         outputfile.write("~" * 20 + "\n" + "SQL Server Details: " + servername + "\n" + "~" * 20 + "\n" * 2)
@@ -29,7 +34,7 @@ def GetSQLInfo(rootdirectory, servernames,outputfile):
                     #trimmedlog.append(line)
                     if not any(item in line for item in ErrorLogIgnoreList):
                         outputfile.write(line)
-                    if "The NETBIOS name of the local node" in line:
+                    if "Server name is " in line:
                         break
             outputfile.write("\n" * 2)
 

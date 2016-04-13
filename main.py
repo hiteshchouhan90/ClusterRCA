@@ -7,6 +7,7 @@ from SystemEventLog import GetSystemLog
 from NETBIOSHistory import GetNETBIOSHistory
 from StorNetDrivers import GetStorageNetworkDrivers
 from ClusterDependencies import GetClusterDependencies
+from SP_Configure import GetSPConfigure
 import CreateFolders
 import sys
 import os
@@ -57,13 +58,15 @@ outputfile = open(rootdirectory + "/finaloutput.txt","w", encoding="utf-16")
 
 GetSysInfo(rootdirectory, servernames,outputfile)
 GetSQLInfo(rootdirectory, servernames,outputfile)
+GetSPConfigure(rootdirectory, servernames,outputfile)
 GetFLTMC(rootdirectory, servernames,outputfile)
 GetStorageNetworkDrivers(rootdirectory, servernames,outputfile)
 GetHotFix(rootdirectory, servernames,outputfile)
 GetClusterDependencies(rootdirectory, servernames,outputfile)
 GetNETBIOSHistory(rootdirectory, servernames,outputfile)
+sysstart = time.time()
 GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate)
-
+print("--- %s Time for SysLog ---" % round((time.time() - sysstart),2))
 # Closing the output file
 print("All done.. Closing the output file")
 outputfile.close()

@@ -23,6 +23,7 @@ def CreateFirstFolder(inputfilename, filenameonly,rootdirectory):
     else:
         os.remove(rootdirectory)
 
+#    print(inputfilename + " " + rootdirectory + "/" + filenameonly)
     unzipfile(inputfilename, rootdirectory + "/" + filenameonly)
 
     SysInfoFile = glob.glob(rootdirectory + "/" + filenameonly + "/*System_Information.txt")
