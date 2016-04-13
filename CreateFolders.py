@@ -23,6 +23,7 @@ def CreateFirstFolder(inputfilename, filenameonly,rootdirectory):
     else:
         os.remove(rootdirectory)
 
+    print("Created the base folder")
 #    print(inputfilename + " " + rootdirectory + "/" + filenameonly)
     unzipfile(inputfilename, rootdirectory + "/" + filenameonly)
 

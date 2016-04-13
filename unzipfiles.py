@@ -2,8 +2,11 @@
 # Using pyunpack because the input file is .CAB !
 # to add to the complexity pyunpack requires either cabextract or 7z to be installed
 # Hence I've installed 7z and added "C:\Program Files\7-Zip" to the environment variable
-import pyunpack
+#import pyunpack
+import os
+print("Entered Unzipfiles")
 
 from pyunpack import Archive
 def unzipfile(filename,destfolder):
-    Archive(filename).extractall(destfolder)
+#    Archive(filename).extractall(destfolder)
+    os.system("7z e " + filename + " -o" + destfolder + " -y")
