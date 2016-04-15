@@ -50,7 +50,7 @@ enddate = datetime.strptime(enddate, "%Y/%m/%d %H:%M") + timedelta(hours=2)
 
 
 start_time = time.time()
-rootdirectory = "C:/Pradeep/data/extract/" + filenameonly
+rootdirectory = os.getcwd() + "/" + filenameonly
 
 FirstServerName= CreateFolders.CreateFirstFolder(inputfilename, filenameonly, rootdirectory)
 servernames= CreateFolders.CreateNextFolders(rootdirectory, FirstServerName, filenameonly)

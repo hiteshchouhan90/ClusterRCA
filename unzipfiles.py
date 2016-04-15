@@ -4,7 +4,7 @@
 # Hence I've installed 7z and added "C:\Program Files\7-Zip" to the environment variable
 #import pyunpack
 import os
-print("Entered Unzipfiles")
+
 
 from pyunpack import Archive
 def unzipfile(filename,destfolder):
