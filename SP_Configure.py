@@ -14,16 +14,17 @@ from itertools import islice
 
 def GetSPConfigure(rootdirectory, servernames,outputfile):
     for servername in servernames:
-        outputfile.write("~" * 15 + "\n" + "SQL Server Configuration Details: " + servername + "\n" + "~" * 15 + "\n" * 2)
-        print(glob.glob(rootdirectory + "/" + servername.upper() + "\*sp_sqldiag_Shutdown.OUT"))
-        print(len(glob.glob(rootdirectory + "/" + servername.upper() + "\*sp_sqldiag_Shutdown.OUT")))
+
+
         if len(glob.glob(rootdirectory + "/" + servername.upper() + "\*sp_sqldiag_Shutdown.OUT"))>0:
             sqldiag = glob.glob(rootdirectory + "/" + servername.upper() + "\*sp_sqldiag_Shutdown.OUT")[0]
-            print(sqldiag)
+            outputfile.write("~" * 15 + "\n" + "SQL Server Configuration Details: " + servername + "\n" + "~" * 15 + "\n" * 2)
+
             with open(sqldiag, "r") as diagfile:
                 for line in diagfile:
-                    if line == "-> sp_configure":
-                        outputfile.writelines (''.join(islice(diagfile,71)))
+                    if 'sp_configure' in line:
+                        next_n_lines = list(islice(diagfile, 71))
+                        outputfile.writelines(next_n_lines)
                         break
 
 
