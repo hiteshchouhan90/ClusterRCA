@@ -26,7 +26,8 @@ def GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate):
     startdate = startdate.strftime("%m/%d/%Y %I:%M:%S %p")
     enddate = enddate.strftime("%m/%d/%Y %I:%M:%S %p")
 
-
+    convertedStartDate = datetime.strptime(startdate, "%m/%d/%Y %I:%M:%S %p")
+    convertedEndDate = datetime.strptime(enddate, "%m/%d/%Y %I:%M:%S %p")
     for servername in servernames:
         lastline = ""
         similarlinecount = 0
@@ -39,9 +40,9 @@ def GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate):
             for line in SystemCSV:
                 if len(line[0])>=10:
                     if line[0][0].isdigit():
-                        if datetime.strptime(line[0] +" " + line[1], "%m/%d/%Y %I:%M:%S %p") >= datetime.strptime(startdate, "%m/%d/%Y %I:%M:%S %p"):
+                        if datetime.strptime(line[0] +" " + line[1], "%m/%d/%Y %I:%M:%S %p") >= convertedStartDate:
                             start = 1
-                        if datetime.strptime(line[0] +" " + line[1], "%m/%d/%Y %I:%M:%S %p") > datetime.strptime(enddate, "%m/%d/%Y %I:%M:%S %p"):
+                        if datetime.strptime(line[0] +" " + line[1], "%m/%d/%Y %I:%M:%S %p") > convertedEndDate:
                             start = 0
                         if start == 1:
                             if not any(item in line[8] for item in SystemLogIgnoreList):
