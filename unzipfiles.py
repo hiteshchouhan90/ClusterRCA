@@ -6,4 +6,9 @@ import pyunpack
 
 from pyunpack import Archive
 def unzipfile(filename,destfolder):
+    print("************************************")
+    print("the file name is " + filename)
+    print("************************************")
+
+    print("the destination folder is " + destfolder)
     Archive(filename).extractall(destfolder)
