@@ -31,25 +31,26 @@ def ErrorLogParser(startdate,enddate,rootdirectory, servernames, instancenames,o
             flag=0
             #print("value for file number is " + str(FileNumber))
             outputfile.write("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \n")
-            outputfile.write("GETTING ERRORLOG DETAILS \n ")
+            outputfile.write("GETTING ERRORLOG DETAILS for " + LogFileName +"\n")
             outputfile.write("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \n")
             with open(LogFileName, "r", encoding="utf-16") as errorlog:
                 duplicateMessage=[]
+                duplicateMessageCount=1
                 #print("ERROR LOG Module starting")
                 #outputfile.write("--------------------Starting Logfile ----------------------" + LogFileName + "\n" )
                 for line in errorlog:
                     try:
                         errorlogtimestamp = datetime.strptime(line[0:19], "%Y-%m-%d %H:%M:%S")
                         if (errorlogtimestamp >= startdate) and (errorlogtimestamp <= enddate):
-                            #duplicateMessage.append(line)
+                            duplicateMessage.append(line)
                             outputfile.write(line)
                             flag=1
 
                         if (errorlogtimestamp<startdate):
                             flag=0
                     except:
-                        outputfile.write("Timestamp in errorlog is smaller then the start date hence skipping rest of the log files.")
                         pass
                 if flag==0:
+                    outputfile.write("Timestamp in errorlog is smaller then the start date hence skipping rest of the log files.")
                     break
             LogFileName=LogFileNameIterator+str(FileNumber)
