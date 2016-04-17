@@ -27,9 +27,57 @@ def GetSPConfigure(rootdirectory, servernames,outputfile):
                         outputfile.writelines(next_n_lines)
                         break
 
-            outputfile.write("\n" *2+"~" * 30 + "\n" + "Loaded Modules: " + servername + "\n" + "~" * 30 + "\n" * 2)
+                outputfile.write("\n" *2+"~" * 30 + "\n" + "Loaded Modules: " + servername + "\n" + "~" * 30 + "\n" * 2)
 
-            with open(sqldiag, "r") as diagfile:
+
+                print('Trying to search wait stats')
+                cols={}
+                headers={}
+                delim=' '
+                lnum=0
+                found=0
+                for line in diagfile:
+                    if '-> sys.dm_os_wait_stats' in line:
+                        found=1
+                        print('*********************found wait stats***********************')
+                        line=next(diagfile)
+                        headers=line.split(None)
+                        i = 0
+                        # print('printing headers from FOR loop')
+                        # print (headers)
+                        for heading in headers:
+                            heading = heading.strip()
+                            cols[heading] = []
+                            headers[i] = heading
+                            i+=1
+                            #print(heading)
+
+                        line=next(diagfile,2)
+
+                    elif ('->' in line or '--' in line) and found==1:
+                        print('hitting break')
+                        break
+
+                    elif found==1:
+#                        print(heading)
+#                         print('Printing headers')
+#                         print(headers)
+#                         print('print columns')
+#                         print(cols)
+                        cells=line.split(None)
+                        i=0
+                        for cell in cells:
+                            cell=cell.strip()
+                            print (cell)
+                            print (i)
+                            cols[headers[i]] += [cell]
+                            i += 1
+
+                    else:
+                        continue
+
+
+
                 start=0
                 for line in diagfile:
                     if '-> sys.dm_os_loaded_modules' in line:
@@ -41,8 +89,5 @@ def GetSPConfigure(rootdirectory, servernames,outputfile):
                                 break
                     elif start == 1:
                         break
-
-
-
-
+    #print (cols)
     print("Got SP_Configure output for " + servername.upper())
