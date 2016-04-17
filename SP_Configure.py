@@ -11,6 +11,7 @@ import os
 import glob
 
 from itertools import islice
+from operator import itemgetter
 
 def GetSPConfigure(rootdirectory, servernames,outputfile):
     for servername in servernames:
@@ -64,12 +65,15 @@ def GetSPConfigure(rootdirectory, servernames,outputfile):
 #                         print(headers)
 #                         print('print columns')
 #                         print(cols)
+                        if 'GATHERER' in line:
+                            continue
+
                         cells=line.split(None)
                         i=0
                         for cell in cells:
                             cell=cell.strip()
-                            print (cell)
-                            print (i)
+                            # print (cell)
+                            # print (i)
                             cols[headers[i]] += [cell]
                             i += 1
 
@@ -90,4 +94,8 @@ def GetSPConfigure(rootdirectory, servernames,outputfile):
                     elif start == 1:
                         break
     #print (cols)
+    sorted_cols=sorted(cols,key=itemgetter(3),reverse=True)
+    cols['waiting_tasks_count']
+    #outputfile.write(cols)
+#    print (sorted(cols['wait_time_ms],key=itemgetter(2)))
     print("Got SP_Configure output for " + servername.upper())
