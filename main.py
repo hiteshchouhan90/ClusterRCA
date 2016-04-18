@@ -44,7 +44,7 @@ enddate = datetime.strptime(enddate, "%Y/%m/%d %H:%M") + timedelta(hours=2)
 
 
 start_time = time.time()
-rootdirectory = "D:/ProjectTesting/" + filenameonly
+rootdirectory = os.getcwd() + "/" + filenameonly
 
 FirstServerName= CreateFolders.CreateFirstFolder(inputfilename, filenameonly, rootdirectory)
 servernames= CreateFolders.CreateNextFolders(rootdirectory, FirstServerName, filenameonly)
@@ -75,7 +75,6 @@ instancename=set((instancename))
 instancename=list(instancename)
 
 
-#Execution starting
 GetSysInfo(rootdirectory, servernames,outputfile)
 GetSQLInfo(rootdirectory, servernames,outputfile)
 GetFLTMC(rootdirectory, servernames,outputfile)
@@ -84,9 +83,17 @@ GetHotFix(rootdirectory, servernames,outputfile)
 GetClusterDependencies(rootdirectory, servernames,outputfile)
 GetNETBIOSHistory(rootdirectory, servernames,outputfile)
 GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate)
-
 ErrorLogParser(startdate,enddate,rootdirectory,servernames,instancename,outputfile)
+
+sysstart = time.time()
+GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate)
+print("--- %s Time for SysLog ---" % round((time.time() - sysstart),2))
 # Closing the output file
-print("All done.. Closing the output file")
-outputfile.close()
 print("--- %s seconds ---" % round((time.time() - start_time),2))
+print("All done.. Closing the output file\n")
+outputfile.close()
+print("Output file can be found at " + str(outputfile.name).replace("/","\\")+ "\n")
+while True:
+    user_input = input("Hit ENTER to quit:\n")
+    if user_input == "":
+        break
