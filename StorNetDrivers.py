@@ -16,7 +16,7 @@ def GetStorageNetworkDrivers(rootdirectory, servernames,outputfile):
             for line in DriverCSV:
                 if len(line)>=4:
                     if any(item in line[16] for item in DriverList) :
-                        outputfile.write(line[3] + "\t" + line[14] + "\t" + line[7] + "\t" + line[15] + "\t" + line[16] + "\n")
+                        outputfile.write("{:<45}".format(line[3]) + "{:<12}".format(line[14]) +  line[7] + "\t" + "{:<45}".format(line[15]) + line[16] + "\n")
         outputfile.write("\n" * 2)
 
     outputfile.write("\n")
