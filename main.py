@@ -17,10 +17,8 @@ from SQLErrorLogParser import ErrorLogParser
 
 import glob
 
-
-
 print("Enter the input file name: ")
-inputfilename = input() or "D:\ProjectTesting\SDPForRCA\DB01.cab" # Adding the OR to avoid typing for now
+inputfilename = input() or "C:\ClusterRCA\SDP.cab" # Adding the OR to avoid typing for now
 
 filenameonly = basename(inputfilename)
 filenameonly = filenameonly[:filenameonly.find(".cab")]
@@ -82,7 +80,6 @@ GetStorageNetworkDrivers(rootdirectory, servernames,outputfile)
 GetHotFix(rootdirectory, servernames,outputfile)
 GetClusterDependencies(rootdirectory, servernames,outputfile)
 GetNETBIOSHistory(rootdirectory, servernames,outputfile)
-GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate)
 ErrorLogParser(startdate,enddate,rootdirectory,servernames,instancename,outputfile)
 
 sysstart = time.time()

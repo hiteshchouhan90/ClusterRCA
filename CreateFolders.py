@@ -52,7 +52,7 @@ def CreateNextFolders(rootdirectory, FirstServerName, filenameonly):
         else:
             os.makedirs(rootdirectory + "/" + servername.upper())
             print("Enter the path of the new zip file for server: " + servername.upper())
-            inputfilename = input() or "D:\ProjectTesting\SDPForRCA\DB02.cab"
+            inputfilename = input() or "C:\ClusterRCA\SDP2.cab"
             unzipfile(inputfilename, rootdirectory + "/" + servername.upper())
             print("Created folder " + rootdirectory +  "/" + servername.upper())
 
