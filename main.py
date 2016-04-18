@@ -75,11 +75,7 @@ instancename=set((instancename))
 instancename=list(instancename)
 
 
-
-
-
-
-
+#Execution starting
 GetSysInfo(rootdirectory, servernames,outputfile)
 GetSQLInfo(rootdirectory, servernames,outputfile)
 GetFLTMC(rootdirectory, servernames,outputfile)
@@ -88,6 +84,7 @@ GetHotFix(rootdirectory, servernames,outputfile)
 GetClusterDependencies(rootdirectory, servernames,outputfile)
 GetNETBIOSHistory(rootdirectory, servernames,outputfile)
 GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate)
+
 ErrorLogParser(startdate,enddate,rootdirectory,servernames,instancename,outputfile)
 # Closing the output file
 print("All done.. Closing the output file")
