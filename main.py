@@ -54,8 +54,6 @@ servernames= CreateFolders.CreateNextFolders(rootdirectory, FirstServerName, fil
 
 outputfile = open(rootdirectory + "/finaloutput.txt","w", encoding="utf-16")
 
-
-
 #getting instance names for servers --
 
 
