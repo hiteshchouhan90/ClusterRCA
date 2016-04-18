@@ -7,7 +7,6 @@ from SystemEventLog import GetSystemLog
 from NETBIOSHistory import GetNETBIOSHistory
 from StorNetDrivers import GetStorageNetworkDrivers
 from ClusterDependencies import GetClusterDependencies
-from SP_Configure import GetSPConfigure
 import CreateFolders
 import sys
 import os
@@ -21,7 +20,7 @@ import glob
 
 
 print("Enter the input file name: ")
-inputfilename = input() or "C:\Pradeep\Data\sdp.cab" # Adding the OR to avoid typing for now
+inputfilename = input() or "D:\ProjectTesting\SDPForRCA\DB01.cab" # Adding the OR to avoid typing for now
 
 filenameonly = basename(inputfilename)
 filenameonly = filenameonly[:filenameonly.find(".cab")]
@@ -45,7 +44,7 @@ enddate = datetime.strptime(enddate, "%Y/%m/%d %H:%M") + timedelta(hours=2)
 
 
 start_time = time.time()
-rootdirectory = "C:\Pradeep\Data\extract/" + filenameonly
+rootdirectory = os.getcwd() + "/" + filenameonly
 
 FirstServerName= CreateFolders.CreateFirstFolder(inputfilename, filenameonly, rootdirectory)
 servernames= CreateFolders.CreateNextFolders(rootdirectory, FirstServerName, filenameonly)
@@ -76,22 +75,25 @@ instancename=set((instancename))
 instancename=list(instancename)
 
 
-
-
-
-
-
 GetSysInfo(rootdirectory, servernames,outputfile)
 GetSQLInfo(rootdirectory, servernames,outputfile)
-GetSPConfigure(rootdirectory, servernames,outputfile)
-# GetFLTMC(rootdirectory, servernames,outputfile)
-# GetStorageNetworkDrivers(rootdirectory, servernames,outputfile)
-# GetHotFix(rootdirectory, servernames,outputfile)
-# GetClusterDependencies(rootdirectory, servernames,outputfile)
-# GetNETBIOSHistory(rootdirectory, servernames,outputfile)
-# GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate)
-# ErrorLogParser(startdate,enddate,rootdirectory,servernames,instancename,outputfile)
+GetFLTMC(rootdirectory, servernames,outputfile)
+GetStorageNetworkDrivers(rootdirectory, servernames,outputfile)
+GetHotFix(rootdirectory, servernames,outputfile)
+GetClusterDependencies(rootdirectory, servernames,outputfile)
+GetNETBIOSHistory(rootdirectory, servernames,outputfile)
+GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate)
+ErrorLogParser(startdate,enddate,rootdirectory,servernames,instancename,outputfile)
+
+sysstart = time.time()
+GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate)
+print("--- %s Time for SysLog ---" % round((time.time() - sysstart),2))
 # Closing the output file
-print("All done.. Closing the output file")
-outputfile.close()
 print("--- %s seconds ---" % round((time.time() - start_time),2))
+print("All done.. Closing the output file\n")
+outputfile.close()
+print("Output file can be found at " + str(outputfile.name).replace("/","\\")+ "\n")
+while True:
+    user_input = input("Hit ENTER to quit:\n")
+    if user_input == "":
+        break
