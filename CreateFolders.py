@@ -1,5 +1,6 @@
 import os
 import glob
+import shutil
 from os.path import basename
 from unzipfiles import unzipfile
 
@@ -21,7 +22,10 @@ def CreateFirstFolder(inputfilename, filenameonly,rootdirectory):
     if not os.path.exists(rootdirectory):
         os.makedirs(rootdirectory + "/" + filenameonly)
     else:
-        os.remove(rootdirectory)
+        shutil.rmtree(rootdirectory)
+        assert (os.path.isdir(rootdirectory) == False)
+        os.makedirs(rootdirectory + "/" + filenameonly)
+
 
 
 #    print(inputfilename + " " + rootdirectory + "/" + filenameonly)
@@ -53,7 +57,7 @@ def CreateNextFolders(rootdirectory, FirstServerName, filenameonly):
         else:
             os.makedirs(rootdirectory + "/" + servername.upper())
             print("Enter the path of the new zip file for server: " + servername.upper())
-            inputfilename = input() or "C:\ClusterRCA\SDP2.cab"
+            inputfilename = input() or "C:\ClusterRCA\DB02.cab"
             unzipfile(inputfilename, rootdirectory + "/" + servername.upper())
             print("Created folder " + rootdirectory +  "/" + servername.upper())
 

@@ -2,7 +2,8 @@ from datetime import datetime, timedelta
 import glob
 import fnmatch
 import os
-def ErrorLogParser(startdate,enddate,rootdirectory, servernames, instancenames,outputfile):
+def SQLErrorLogParser(startdate,enddate,rootdirectory, servernames, instancenames,outputfile):
+    print("GETTING DATA FROM SQL ERRORLOGS FOR THE TIMEFRAME MENTIONED")
     baseErrorLogName = ""
     #startdate = datetime.strptime(startdate,"%Y/%m/%d %H:%M")
     startdate=startdate.strftime("%Y-%m-%d %H:%M:%S")
@@ -74,7 +75,7 @@ def ErrorLogParser(startdate,enddate,rootdirectory, servernames, instancenames,o
 
                                     elif (onlyMessage!=tempMessage) and (duplicateMessageCount>1):
                                         outputfile.write("\n")
-                                        outputfile.write("error value is"+ str(ErrorValue))
+                                        outputfile.write(str(ErrorValue))
                                         outputfile.write(duplicateMessage)
                                         outputfile.write("\n Above message appeared " + str(duplicateMessageCount) +" times\n")
                                         outputfile.write("\n------------------------------------------------------------\n")

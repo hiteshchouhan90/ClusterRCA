@@ -1,4 +1,6 @@
+import msvcrt
 import fnmatch
+from ClusterLogParser import ClusterLogParser
 from SystemInfo import GetSysInfo
 from SQLServerInfo import GetSQLInfo
 from FLTMC import GetFLTMC
@@ -8,33 +10,24 @@ from NETBIOSHistory import GetNETBIOSHistory
 from StorNetDrivers import GetStorageNetworkDrivers
 from ClusterDependencies import GetClusterDependencies
 import CreateFolders
-import sys
 import os
 import time
 from datetime import datetime, timedelta
 from os.path import basename
-from SQLErrorLogParser import ErrorLogParser
+from SQLErrorLogParser import SQLErrorLogParser
 
-import glob
 
 print("Enter the input file name: ")
-inputfilename = input() or "C:\ClusterRCA\SDP.cab" # Adding the OR to avoid typing for now
+inputfilename = input() or "C:\ClusterRCA\DB01.cab" # Adding the OR to avoid typing for now
 
 filenameonly = basename(inputfilename)
 filenameonly = filenameonly[:filenameonly.find(".cab")]
 
 # Getting the time frame of the issue
 print("Enter the time frame of the issue in \"yyyy/mm/dd HH:mm\" format:")
-startdate = input("Start date:\n") or "2016/04/08 20:00"
-enddate = input("End date:\n") or "2016/04/08 21:00"
+startdate = input("Start date:\n") or "2016/04/08 00:00"
+enddate = input("End date:\n") or "2016/04/08 05:00"
 
-"""
-Some inputs for testing
-
-C:\Pradeep\Data\SDP_Single.cab
-2016/03/20 00:00
-2016/03/20 05:00
-"""
 # Adding/subtracting  two hours as buffer
 
 startdate = datetime.strptime(startdate, "%Y/%m/%d %H:%M") - timedelta(hours=2)
@@ -42,7 +35,7 @@ enddate = datetime.strptime(enddate, "%Y/%m/%d %H:%M") + timedelta(hours=2)
 
 
 start_time = time.time()
-rootdirectory = os.getcwd() + "/" + filenameonly
+rootdirectory = "C:/ClusterRCA" + "/" + filenameonly
 
 FirstServerName= CreateFolders.CreateFirstFolder(inputfilename, filenameonly, rootdirectory)
 servernames= CreateFolders.CreateNextFolders(rootdirectory, FirstServerName, filenameonly)
@@ -53,6 +46,8 @@ servernames= CreateFolders.CreateNextFolders(rootdirectory, FirstServerName, fil
 #   TypeError: a bytes - like object is required, not 'str'
 
 outputfile = open(rootdirectory + "/finaloutput.txt","w", encoding="utf-16")
+
+
 
 #getting instance names for servers --
 
@@ -78,15 +73,13 @@ GetStorageNetworkDrivers(rootdirectory, servernames,outputfile)
 GetHotFix(rootdirectory, servernames,outputfile)
 GetClusterDependencies(rootdirectory, servernames,outputfile)
 GetNETBIOSHistory(rootdirectory, servernames,outputfile)
-ErrorLogParser(startdate,enddate,rootdirectory,servernames,instancename,outputfile)
-
-sysstart = time.time()
 GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate)
-print("--- %s Time for SysLog ---" % round((time.time() - sysstart),2))
-# Closing the output file
-print("--- %s seconds ---" % round((time.time() - start_time),2))
+SQLErrorLogParser(startdate,enddate,rootdirectory,servernames,instancename,outputfile)
+ClusterLogParser(rootdirectory,servernames,outputfile,startdate,enddate)
+
 print("All done.. Closing the output file\n")
 outputfile.close()
+
 print("Output file can be found at " + str(outputfile.name).replace("/","\\")+ "\n")
 while True:
     user_input = input("Hit ENTER to quit:\n")
