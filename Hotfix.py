@@ -4,6 +4,16 @@ import glob
 import re
 
 def GetHotFix(rootdirectory, servernames,outputfile):
+
+    """
+    This will fetch the hotfixes(KB) installed on all the servers
+    For the first time in the project we're using regular expressions i.e. to look for the word KB
+    The values for each server is stored in KBListname. Once all values are stored, inserting the ServerName as the 0th element in the list
+    Hotfixes for all the servers are stored in FinalList as list of list (by appending KBListName)
+    Finally loop through the FinalList and get the missing hotfixes by converting the list into a set, substracting it from the set of previous list
+    
+    """
+
     FinalList = []
     for servername in servernames:
         hotfixfile = glob.glob(rootdirectory + "/" + servername.upper() + "/*_Hotfixes.TXT")[0]
