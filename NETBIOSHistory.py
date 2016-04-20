@@ -7,6 +7,13 @@ from datetime import datetime
 
 def GetNETBIOSHistory(rootdirectory, servernames,outputfile):
 
+    """
+    This module gets us the Owner of the ClusterResource by looking for NETBIOS name in the ErrorLog
+    Useful when finding the history of Cluster resource ownership
+    Using the start variable in such a way that if it is 1, start writing to the output file, if 0 stop
+    NETBIOS name of the owner node is printed only once in the error log
+    
+    """
     for servername in servernames:
         ErrorLogFiles = glob.glob(rootdirectory + "/" + servername.upper() + "\*_ERRORLOG*")
         InstanceName =[]
