@@ -2,6 +2,33 @@ import glob
 from datetime import datetime, timedelta
 
 def ClusterLogParser(rootdirectory,servernames,outputfile,startdate,enddate):
+
+    """
+    The parameters are self-explanatory and they are passed from variables in main.py
+    Cluster log's entries are saved in UTC timezone
+
+    Since the servers are in different timezone most of the times, we need to take into account the Day Light Saving also
+    Throughout the application we've maintained the standard to fetch records +2/-2 hours from the user input date/time
+    Since DST will be +1/-1 hours, not taking the DST into account here as our logic has already covered the extra 2 hours
+
+    In case we change our minds in future, the following example will be a good start to include DST
+
+                        tzinfo.dst - Gives whether timezone is applicable or not and then we can put if logic around it followed with following :
+                        newstartdate = startdate + timedelta(hours=1)
+                        newenddate = enddate + timedelta(hours=1)
+
+                    else:
+                        newstartdate=newstartdate
+                        newenddate=newenddate
+
+
+    Another way is to use pytz with the timezone which takes care of DST as well.
+    Example to use pytz -- http://pytz.sourceforge.net/
+
+
+
+    """
+
     print("GETTING CLUSTERLOG DETAILS FROM ALL NODES FOR THE MENTIONED TIMEFRAME")
     logFilePath=[]
     sysInfo=[]
@@ -18,6 +45,11 @@ def ClusterLogParser(rootdirectory,servernames,outputfile,startdate,enddate):
     #logFilePath=set(logFilePath)
     for servername in servernames:
         sysInfoFile = glob.glob(rootdirectory + "/" + servername.upper() + "\*System_Information.txt")[0]
+
+        """
+        Getting the time zone information from the one of the lines in System_Information.txt
+
+       """
         with open(sysInfoFile,"r",encoding="utf-16") as sysInfoFiledata:
             for line in sysInfoFiledata:
                 if line.__contains__('Time Zone:'):
@@ -50,19 +82,3 @@ def ClusterLogParser(rootdirectory,servernames,outputfile,startdate,enddate):
 
 
 
-'''
-
-NOT CONSIDERING DST as we are already taking +-2 in account and there will be a lot of data in cluster Log
-
-                    tzinfo.dst - Gives whether timezone is applicable or not and then we can put if logic around it followed with following :
-                        newstartdate = startdate + timedelta(hours=1)
-                        newenddate = enddate + timedelta(hours=1)
-
-                    else:
-                        newstartdate=newstartdate
-                        newenddate=newenddate
-
-
-Another way is to use pytz with the timezone which takes care of DST as well.
-Example to use pytz -- http://pytz.sourceforge.net/
-'''
