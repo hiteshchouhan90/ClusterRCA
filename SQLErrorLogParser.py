@@ -3,7 +3,7 @@ import glob
 import fnmatch
 import os
 def SQLErrorLogParser(startdate,enddate,rootdirectory, servernames, instancenames,outputfile):
-    print("GETTING DATA FROM SQL ERRORLOGS FOR THE TIMEFRAME MENTIONED")
+    print("Getting error log details for the give time stamp .....")
     baseErrorLogName = ""
     #startdate = datetime.strptime(startdate,"%Y/%m/%d %H:%M")
     startdate=startdate.strftime("%Y-%m-%d %H:%M:%S")
@@ -32,7 +32,7 @@ def SQLErrorLogParser(startdate,enddate,rootdirectory, servernames, instancename
             flag=1
             #print("value for file number is " + str(FileNumber))
             outputfile.write("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \n")
-            outputfile.write("GETTING ERRORLOG DETAILS for " + LogFileName +"\n")
+            outputfile.write("Getting Error log data for  " + LogFileName +"\n")
             outputfile.write("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \n")
             with open(LogFileName, "r", encoding="utf-16") as errorlog:
                 duplicateMessage=""
