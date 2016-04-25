@@ -2,8 +2,8 @@ from datetime import datetime, timedelta
 import glob
 import fnmatch
 import os
-def SQLErrorLogParser(startdate,enddate,rootdirectory, servernames, instancenames,outputfile):
-    print("Getting error log details for the give time stamp .....\n")
+def GetSQLErrorLogs(startdate,enddate,rootdirectory, servernames, instancenames,outputfile):
+    print("Getting error log details for the given time stamp .....\n")
     baseErrorLogName = ""
     #startdate = datetime.strptime(startdate,"%Y/%m/%d %H:%M")
     startdate=startdate.strftime("%Y-%m-%d %H:%M:%S")

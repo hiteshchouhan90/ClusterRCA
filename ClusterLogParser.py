@@ -1,7 +1,7 @@
 import glob
 from datetime import datetime, timedelta
 
-def ClusterLogParser(rootdirectory,servernames,outputfile,startdate,enddate):
+def GetClusterLogs(rootdirectory,servernames,outputfile,startdate,enddate):
 
     """
     The parameters are self-explanatory and they are passed from variables in main.py
@@ -29,7 +29,7 @@ def ClusterLogParser(rootdirectory,servernames,outputfile,startdate,enddate):
 
     """
 
-    print("GETTING CLUSTERLOG DETAILS FROM ALL NODES FOR THE MENTIONED TIMEFRAME")
+    print("Getting data from clusterlog for mentioned timeframe")
     logFilePath=[]
     sysInfo=[]
     timeZone=""

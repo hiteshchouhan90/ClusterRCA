@@ -1,6 +1,6 @@
 import msvcrt
 import fnmatch
-from ClusterLogParser import ClusterLogParser
+from ClusterLogParser import GetClusterLogs
 from SystemInfo import GetSysInfo
 from SQLServerInfo import GetSQLInfo
 from FLTMC import GetFLTMC
@@ -14,7 +14,7 @@ import os
 import time
 from datetime import datetime, timedelta
 from os.path import basename
-from SQLErrorLogParser import SQLErrorLogParser
+from SQLErrorLogParser import GetSQLErrorLogs
 
 
 print("Enter the input file name: ")
@@ -74,8 +74,8 @@ GetHotFix(rootdirectory, servernames,outputfile)
 GetClusterDependencies(rootdirectory, servernames,outputfile)
 GetNETBIOSHistory(rootdirectory, servernames,outputfile)
 GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate)
-SQLErrorLogParser(startdate,enddate,rootdirectory,servernames,instancename,outputfile)
-ClusterLogParser(rootdirectory,servernames,outputfile,startdate,enddate)
+GetSQLErrorLogs(startdate,enddate,rootdirectory,servernames,instancename,outputfile)
+GetClusterLogs(rootdirectory,servernames,outputfile,startdate,enddate)
 
 print("All done.. Closing the output file\n")
 outputfile.close()
