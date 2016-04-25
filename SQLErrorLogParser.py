@@ -3,7 +3,8 @@ import glob
 import fnmatch
 import os
 def GetSQLErrorLogs(startdate,enddate,rootdirectory, servernames, instancenames,outputfile):
-    print("Getting error log details for the given time stamp .....\n")
+    print("Getting SQL Error logs data for the given timeframe \n")
+
     baseErrorLogName = ""
     #startdate = datetime.strptime(startdate,"%Y/%m/%d %H:%M")
     startdate=startdate.strftime("%Y-%m-%d %H:%M:%S")
@@ -32,26 +33,21 @@ def GetSQLErrorLogs(startdate,enddate,rootdirectory, servernames, instancenames,
             flag=1
             #print("value for file number is " + str(FileNumber))
             outputfile.write("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \n")
-            outputfile.write("Getting Error log data for  " + LogFileName +"\n")
+            outputfile.write("Getting ERRORLOG details for " + LogFileName +"\n")
             outputfile.write("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \n")
             with open(LogFileName, "r", encoding="utf-16") as errorlog:
                 duplicateMessage=""
                 duplicateMessageCount=1
                 tempMessage=""
-                InnerMessages=[]
-                InnerFlag=0
                 for line in errorlog:
                     try:
                         errorlogtimestamp = datetime.strptime(line[0:19], "%Y-%m-%d %H:%M:%S")
                         if (errorlogtimestamp >= startdate) and (errorlogtimestamp <= enddate):
-                            #duplicateMessage=line
-                            #outputfile.write(line)
                             flag=1
                             try:
                                 onlyMessageTemp = line[35:]
                                 ErrorValue=""
                                 if "Error:" in onlyMessageTemp:
-                                    #outputfile.write("skipping as this is error line")
                                     ErrorValue=onlyMessageTemp
 
                                 elif ([onlyMessageTemp for x in ignoreList if onlyMessageTemp.__contains__(x)]):
@@ -59,28 +55,17 @@ def GetSQLErrorLogs(startdate,enddate,rootdirectory, servernames, instancenames,
 
                                 else:
                                     onlyMessage=onlyMessageTemp
-                                    #outputfile.write("\n-------------------------------------------------------------------- \n")
-                                    #outputfile.write("the only message is " + onlyMessage)
-                                    #outputfile.write("temp message is " + tempMessage)
-                                    #outputfile.write("duplicate message count is " + str(duplicateMessageCount))
-                                    #outputfile.write("\n-------------------------------------------------------------------- \n")
+
                                     if onlyMessage==tempMessage:
                                         duplicateMessage=line
                                         duplicateMessageCount+=1
-                                        #outputfile.write("\n------------------inside onlyMessage==tempMessage------------------ \n")
-                                        #outputfile.write("the message is " + onlyMessage)
-                                        #outputfile.write("temp message is " + tempMessage)
-                                        #outputfile.write("duplicate message count is " + str(duplicateMessageCount))
-                                        #outputfile.write("\n-------------------------------------------------------------------- \n")
-
                                     elif (onlyMessage!=tempMessage) and (duplicateMessageCount>1):
-                                        outputfile.write("\n")
-                                        outputfile.write(str(ErrorValue))
+                                        outputfile.write("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
+                                        outputfile.write("value is "+ str(ErrorValue))
                                         outputfile.write(duplicateMessage)
-                                        outputfile.write("\n Above message appeared " + str(duplicateMessageCount) +" times\n")
-                                        outputfile.write("\n------------------------------------------------------------\n")
+                                        outputfile.write("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
+                                        outputfile.write("Above message appeared " + str(duplicateMessageCount) +" times\n")
                                         tempMessage = onlyMessage
-                                        #outputfile.write("in Elif")
                                         duplicateMessageCount=0
 
                                     else:
@@ -97,3 +82,4 @@ def GetSQLErrorLogs(startdate,enddate,rootdirectory, servernames, instancenames,
                     outputfile.write("Timestamp in ERRORLOG is smaller then the start date hence skipping rest of the log files." + str(errorlogtimestamp))
                     break
             LogFileName=LogFileNameIterator+str(FileNumber)
+    print("Got SQL Errorlogs")

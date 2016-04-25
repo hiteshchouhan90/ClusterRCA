@@ -15,7 +15,7 @@ import os
 import time
 from datetime import datetime, timedelta
 from os.path import basename
-from SQLErrorLogParser import SQLErrorLogParser
+from SQLErrorLogParser import GetSQLErrorLogs
 
 
 print("Enter the input file name: ")
@@ -77,7 +77,7 @@ GetNETBIOSHistory(rootdirectory, servernames,outputfile)
 GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate)
 ClusterLogParser(rootdirectory,servernames,outputfile,startdate,enddate)
 GetApplicationLog(rootdirectory, servernames,outputfile,startdate, enddate)
-SQLErrorLogParser(startdate,enddate,rootdirectory,servernames,instancename,outputfile)
+GetSQLErrorLogs(startdate,enddate,rootdirectory,servernames,instancename,outputfile)
 
 print("All done.. Closing the output file\n")
 outputfile.close()

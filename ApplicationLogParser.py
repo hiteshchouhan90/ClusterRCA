@@ -5,6 +5,7 @@ import csv
 from datetime import datetime
 
 def GetApplicationLog(rootdirectory, servernames,outputfile,startdate, enddate):
+    print("Getting Application log data for the given timeframe")
     ApplogIgnoreList = []
 
 # First converting the date time to match the System Event Log format i.e. 01/26/2016 05:14:34 AM

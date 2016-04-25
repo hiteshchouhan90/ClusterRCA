@@ -80,5 +80,4 @@ def GetClusterLogs(rootdirectory,servernames,outputfile,startdate,enddate):
                                 except:
                                     pass
 
-
-
+    print("Got clusterlog data")
