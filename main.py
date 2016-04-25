@@ -1,6 +1,7 @@
 import msvcrt
+from ApplicationLogParser import GetApplicationLog
 import fnmatch
-from ClusterLogParser import GetClusterLogs
+from ClusterLogParser import ClusterLogParser
 from SystemInfo import GetSysInfo
 from SQLServerInfo import GetSQLInfo
 from FLTMC import GetFLTMC
@@ -14,7 +15,7 @@ import os
 import time
 from datetime import datetime, timedelta
 from os.path import basename
-from SQLErrorLogParser import GetSQLErrorLogs
+from SQLErrorLogParser import SQLErrorLogParser
 
 
 print("Enter the input file name: ")
@@ -25,8 +26,8 @@ filenameonly = filenameonly[:filenameonly.find(".cab")]
 
 # Getting the time frame of the issue
 print("Enter the time frame of the issue in \"yyyy/mm/dd HH:mm\" format:")
-startdate = input("Start date:\n") or "2016/02/23 09:00"
-enddate = input("End date:\n") or "2016/02/23 11:00"
+startdate = input("Start date:\n") or "2016/04/05 18:00"
+enddate = input("End date:\n") or "2016/04/05 19:00"
 
 # Adding/subtracting  two hours as buffer
 
@@ -67,15 +68,16 @@ instancename=list(instancename)
 
 
 GetSysInfo(rootdirectory, servernames,outputfile)
-#GetSQLInfo(rootdirectory, servernames,outputfile)
+GetSQLInfo(rootdirectory, servernames,outputfile)
 GetFLTMC(rootdirectory, servernames,outputfile)
 GetStorageNetworkDrivers(rootdirectory, servernames,outputfile)
 GetHotFix(rootdirectory, servernames,outputfile)
 GetClusterDependencies(rootdirectory, servernames,outputfile)
 GetNETBIOSHistory(rootdirectory, servernames,outputfile)
 GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate)
-GetSQLErrorLogs(startdate,enddate,rootdirectory,servernames,instancename,outputfile)
-GetClusterLogs(rootdirectory,servernames,outputfile,startdate,enddate)
+ClusterLogParser(rootdirectory,servernames,outputfile,startdate,enddate)
+GetApplicationLog(rootdirectory, servernames,outputfile,startdate, enddate)
+SQLErrorLogParser(startdate,enddate,rootdirectory,servernames,instancename,outputfile)
 
 print("All done.. Closing the output file\n")
 outputfile.close()
