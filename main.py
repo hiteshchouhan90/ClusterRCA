@@ -1,7 +1,7 @@
 import msvcrt
 from ApplicationLogParser import GetApplicationLog
 import fnmatch
-from ClusterLogParser import ClusterLogParser
+from ClusterLogParser import GetClusterLogs
 from SystemInfo import GetSysInfo
 from SQLServerInfo import GetSQLInfo
 from FLTMC import GetFLTMC
@@ -26,8 +26,8 @@ filenameonly = filenameonly[:filenameonly.find(".cab")]
 
 # Getting the time frame of the issue
 print("Enter the time frame of the issue in \"yyyy/mm/dd HH:mm\" format:")
-startdate = input("Start date:\n") or "2016/04/05 18:00"
-enddate = input("End date:\n") or "2016/04/05 19:00"
+startdate = input("Start date:\n") or "2016/04/05 21:00"
+enddate = input("End date:\n") or "2016/04/05 22:00"
 
 # Adding/subtracting  two hours as buffer
 
@@ -75,7 +75,7 @@ GetHotFix(rootdirectory, servernames,outputfile)
 GetClusterDependencies(rootdirectory, servernames,outputfile)
 GetNETBIOSHistory(rootdirectory, servernames,outputfile)
 GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate)
-ClusterLogParser(rootdirectory,servernames,outputfile,startdate,enddate)
+GetClusterLogs(rootdirectory,servernames,outputfile,startdate,enddate)
 GetApplicationLog(rootdirectory, servernames,outputfile,startdate, enddate)
 GetSQLErrorLogs(startdate,enddate,rootdirectory,servernames,instancename,outputfile)
 
