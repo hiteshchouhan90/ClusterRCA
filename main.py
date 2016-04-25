@@ -25,8 +25,8 @@ filenameonly = filenameonly[:filenameonly.find(".cab")]
 
 # Getting the time frame of the issue
 print("Enter the time frame of the issue in \"yyyy/mm/dd HH:mm\" format:")
-startdate = input("Start date:\n") or "2016/04/08 00:00"
-enddate = input("End date:\n") or "2016/04/08 05:00"
+startdate = input("Start date:\n") or "2016/02/23 09:00"
+enddate = input("End date:\n") or "2016/02/23 11:00"
 
 # Adding/subtracting  two hours as buffer
 
@@ -67,7 +67,7 @@ instancename=list(instancename)
 
 
 GetSysInfo(rootdirectory, servernames,outputfile)
-GetSQLInfo(rootdirectory, servernames,outputfile)
+#GetSQLInfo(rootdirectory, servernames,outputfile)
 GetFLTMC(rootdirectory, servernames,outputfile)
 GetStorageNetworkDrivers(rootdirectory, servernames,outputfile)
 GetHotFix(rootdirectory, servernames,outputfile)
