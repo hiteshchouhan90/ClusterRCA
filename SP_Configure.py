@@ -48,7 +48,7 @@ def GetSPConfigure(rootdirectory, servernames,outputfile):
                         break
 
 
-
+# Printing both Loaded modules and Cluster node information by the below for loop
                 start=0
                 for line in diagfile:
                     if '-> sys.dm_os_loaded_modules' in line:
