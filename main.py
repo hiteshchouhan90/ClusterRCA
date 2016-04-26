@@ -10,6 +10,7 @@ from SystemEventLog import GetSystemLog
 from NETBIOSHistory import GetNETBIOSHistory
 from StorNetDrivers import GetStorageNetworkDrivers
 from ClusterDependencies import GetClusterDependencies
+from SP_Configure import GetSPConfigure
 import CreateFolders
 import os
 import time
@@ -69,6 +70,7 @@ instancename=list(instancename)
 
 GetSysInfo(rootdirectory, servernames,outputfile)
 GetSQLInfo(rootdirectory, servernames,outputfile)
+GetSPConfigure(rootdirectory, servernames,outputfile)
 GetFLTMC(rootdirectory, servernames,outputfile)
 GetStorageNetworkDrivers(rootdirectory, servernames,outputfile)
 GetHotFix(rootdirectory, servernames,outputfile)

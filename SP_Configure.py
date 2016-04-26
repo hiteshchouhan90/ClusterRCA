@@ -31,61 +31,12 @@ def GetSPConfigure(rootdirectory, servernames,outputfile):
 
                 outputfile.write("\n" *2+"~" * 30 + "\n" + "Loaded Modules: " + servername + "\n" + "~" * 30 + "\n" * 2)
 
-<<<<<<< HEAD
-
-                print('Trying to search wait stats')
-                cols={}
-                headers={}
-                delim=' '
-                lnum=0
-=======
                 waitstatsfile = open(rootdirectory + "/waitstats.txt","w", encoding="utf-16")
->>>>>>> ef577eea186a0ff28a518ab2e272266813a819bd
                 found=0
                 for line in diagfile:
                     if '-> sys.dm_os_wait_stats' in line:
                         found=1
                         print('*********************found wait stats***********************')
-<<<<<<< HEAD
-                        line=next(diagfile)
-                        headers=line.split(None)
-                        i = 0
-                        # print('printing headers from FOR loop')
-                        # print (headers)
-                        for heading in headers:
-                            heading = heading.strip()
-                            cols[heading] = []
-                            headers[i] = heading
-                            i+=1
-                            #print(heading)
-
-                        line=next(diagfile,2)
-
-                    elif ('->' in line or '--' in line) and found==1:
-                        print('hitting break')
-                        break
-
-                    elif found==1:
-#                        print(heading)
-#                         print('Printing headers')
-#                         print(headers)
-#                         print('print columns')
-#                         print(cols)
-                        if 'GATHERER' in line:
-                            continue
-
-                        cells=line.split(None)
-                        i=0
-                        for cell in cells:
-                            cell=cell.strip()
-                            # print (cell)
-                            # print (i)
-                            cols[headers[i]] += [cell]
-                            i += 1
-
-                    else:
-                        continue
-=======
                         for line2 in diagfile:
                             if '--' in line2:
                                 continue
@@ -95,10 +46,9 @@ def GetSPConfigure(rootdirectory, servernames,outputfile):
                                 break
                     elif found==1:
                         break
->>>>>>> ef577eea186a0ff28a518ab2e272266813a819bd
 
 
-# Printing both Loaded modules and Cluster node information by the below for loop
+
                 start=0
                 for line in diagfile:
                     if '-> sys.dm_os_loaded_modules' in line:
@@ -110,16 +60,8 @@ def GetSPConfigure(rootdirectory, servernames,outputfile):
                                 break
                     elif start == 1:
                         break
-<<<<<<< HEAD
-    #print (cols)
-    sorted_cols=sorted(cols,key=itemgetter(3),reverse=True)
-    cols['waiting_tasks_count']
-    #outputfile.write(cols)
-#    print (sorted(cols['wait_time_ms],key=itemgetter(2)))
-=======
     wait_stats_df=pd.read_table(rootdirectory + "/waitstats.txt",delim_whitespace=True,lineterminator='\n',header=0,encoding='utf-16',error_bad_lines=False)
     wait_stats_df = wait_stats_df.sort_values(['wait_time_ms','waiting_tasks_count'], ascending=[False,False])
     wait_stats_df=wait_stats_df.head(10)
     wait_stats_df.to_csv(outputfile,sep='\t',header=True,line_terminator='\n',encoding='utf-16')
->>>>>>> ef577eea186a0ff28a518ab2e272266813a819bd
     print("Got SP_Configure output for " + servername.upper())

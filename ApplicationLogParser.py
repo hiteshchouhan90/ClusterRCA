@@ -18,7 +18,7 @@ def GetApplicationLog(rootdirectory, servernames,outputfile,startdate, enddate):
         outputfile.write("~" * 20 + "\n" + "Application Event Log of " + servername + "\n" + "~" * 20 + "\n" * 2)
         ApplicationEventLog = glob.glob(rootdirectory + "/" + servername.upper() + "\*_evt_Application.csv")[0]
 
-        with open(ApplicationEventLog, "r", encoding="utf-8") as AppEvtLog:
+        with open(ApplicationEventLog, "r") as AppEvtLog:
             duplicateMessage = ""
             duplicateMessageCount = 1
             tempMessage = ""
