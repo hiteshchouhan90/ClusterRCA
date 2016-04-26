@@ -1,4 +1,7 @@
+import msvcrt
+from ApplicationLogParser import GetApplicationLog
 import fnmatch
+from ClusterLogParser import GetClusterLogs
 from SystemInfo import GetSysInfo
 from SQLServerInfo import GetSQLInfo
 from FLTMC import GetFLTMC
@@ -8,36 +11,24 @@ from NETBIOSHistory import GetNETBIOSHistory
 from StorNetDrivers import GetStorageNetworkDrivers
 from ClusterDependencies import GetClusterDependencies
 import CreateFolders
-import sys
 import os
 import time
-from SP_Configure import GetSPConfigure
 from datetime import datetime, timedelta
 from os.path import basename
-from SQLErrorLogParser import ErrorLogParser
-
-import glob
-
+from SQLErrorLogParser import GetSQLErrorLogs
 
 
 print("Enter the input file name: ")
-inputfilename = input() or "C:\Pradeep\Data\sdp.cab" # Adding the OR to avoid typing for now
+inputfilename = input() or "C:\ClusterRCA\DB01.cab" # Adding the OR to avoid typing for now
 
 filenameonly = basename(inputfilename)
 filenameonly = filenameonly[:filenameonly.find(".cab")]
 
 # Getting the time frame of the issue
 print("Enter the time frame of the issue in \"yyyy/mm/dd HH:mm\" format:")
-startdate = input("Start date:\n") or "2016/04/08 20:00"
-enddate = input("End date:\n") or "2016/04/08 21:00"
+startdate = input("Start date:\n") or "2016/04/05 21:00"
+enddate = input("End date:\n") or "2016/04/05 22:00"
 
-"""
-Some inputs for testing
-
-C:\Pradeep\Data\SDP_Single.cab
-2016/03/20 00:00
-2016/03/20 05:00
-"""
 # Adding/subtracting  two hours as buffer
 
 startdate = datetime.strptime(startdate, "%Y/%m/%d %H:%M") - timedelta(hours=2)
@@ -45,7 +36,7 @@ enddate = datetime.strptime(enddate, "%Y/%m/%d %H:%M") + timedelta(hours=2)
 
 
 start_time = time.time()
-rootdirectory = "C:\Pradeep\Data\extract/" + filenameonly
+rootdirectory = "C:/ClusterRCA" + "/" + filenameonly
 
 FirstServerName= CreateFolders.CreateFirstFolder(inputfilename, filenameonly, rootdirectory)
 servernames= CreateFolders.CreateNextFolders(rootdirectory, FirstServerName, filenameonly)
@@ -76,22 +67,23 @@ instancename=set((instancename))
 instancename=list(instancename)
 
 
-
-
-
-
-
 GetSysInfo(rootdirectory, servernames,outputfile)
 GetSQLInfo(rootdirectory, servernames,outputfile)
-GetSPConfigure(rootdirectory, servernames,outputfile)
-# GetFLTMC(rootdirectory, servernames,outputfile)
-# GetStorageNetworkDrivers(rootdirectory, servernames,outputfile)
-# GetHotFix(rootdirectory, servernames,outputfile)
-# GetClusterDependencies(rootdirectory, servernames,outputfile)
-# GetNETBIOSHistory(rootdirectory, servernames,outputfile)
-# GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate)
-# ErrorLogParser(startdate,enddate,rootdirectory,servernames,instancename,outputfile)
-# Closing the output file
-print("All done.. Closing the output file")
+GetFLTMC(rootdirectory, servernames,outputfile)
+GetStorageNetworkDrivers(rootdirectory, servernames,outputfile)
+GetHotFix(rootdirectory, servernames,outputfile)
+GetClusterDependencies(rootdirectory, servernames,outputfile)
+GetNETBIOSHistory(rootdirectory, servernames,outputfile)
+GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate)
+GetClusterLogs(rootdirectory,servernames,outputfile,startdate,enddate)
+GetApplicationLog(rootdirectory, servernames,outputfile,startdate, enddate)
+GetSQLErrorLogs(startdate,enddate,rootdirectory,servernames,instancename,outputfile)
+
+print("All done.. Closing the output file\n")
 outputfile.close()
-print("--- %s seconds ---" % round((time.time() - start_time),2))
+
+print("Output file can be found at " + str(outputfile.name).replace("/","\\")+ "\n")
+while True:
+    user_input = input("Hit ENTER to quit:\n")
+    if user_input == "":
+        break

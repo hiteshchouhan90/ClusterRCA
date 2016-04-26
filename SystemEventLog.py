@@ -42,7 +42,7 @@ def GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate):
                     if line[0][0].isdigit():
                         if datetime.strptime(line[0] +" " + line[1], "%m/%d/%Y %I:%M:%S %p") >= convertedStartDate:
                             start = 1
-                        if datetime.strptime(line[0] +" " + line[1], "%m/%d/%Y %I:%M:%S %p") > convertedEndDate:
+                        if datetime.strptime(line[0] +" " + line[1], "%m/%d/%Y %I:%M:%S %p") <= convertedEndDate:
                             start = 0
                         if start == 1:
                             if not any(item in line[8] for item in SystemLogIgnoreList):

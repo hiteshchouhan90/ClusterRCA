@@ -7,6 +7,7 @@ import re
     Definition::
         Prints the filter drivers loaded on the servers
         Excludes known Microsoft filters
+        File parsing starts with the word "Filter Name" and ends with the first occurence of "---------"
 """
 
 def GetFLTMC(rootdirectory, servernames,outputfile):

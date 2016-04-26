@@ -3,10 +3,15 @@
 # to add to the complexity pyunpack requires either cabextract or 7z to be installed
 # Hence I've installed 7z and added "C:\Program Files\7-Zip" to the environment variable
 #import pyunpack
-import os
+import os,sys
 
 
-from pyunpack import Archive
 def unzipfile(filename,destfolder):
 #    Archive(filename).extractall(destfolder)
-    os.system("7z e " + filename + " -o" + destfolder + " -y")
+    try:
+        temppath = sys._MEIPASS
+    except AttributeError:
+        temppath = os.path.abspath(".")
+
+    print("Extracting " + filename)
+    os.system(temppath + "\\7z.exe e " + filename + " -o" + destfolder + " -y > nul")

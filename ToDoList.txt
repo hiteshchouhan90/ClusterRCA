@@ -1,10 +1,10 @@
 Get all the nodes - Pradeep (Done)
 
-Get all the instances - Ravi
+Get all the instances - Ravi (Done)
 
-Get the dependencies for resources - Ravi
+Get the dependencies for resources - Pradeep (Done)
 
-Ask for instance name - Ravi
+Ask for instance name - Ravi (Done)
 
 Ask for time duration - Pradeep (Done)
 
@@ -14,17 +14,17 @@ System Information for all nodes  - Pradeep (Done)
 
 SQL Server information for all nodes - Pradeep (Done)
 
-SQL Server Configuration from all instances - Ravi
+SQL Server Configuration from all instances - Ravi (Done)
                 SP_Configure
                 dm_os_cluster_nodes
                 Loaded Modules
                 Wait Stats TOP 5 - Try to explain it to user             
 
-Processes  - 3rd party services should be the focus - Ravi
+Processes  - 3rd party services should be the focus - Ravi (Done)
 
 Drivers - Storage & Network drivers - Pradeep (done)
 
-Parse Cluster log - Hitesh
+Parse Cluster log - Hitesh (Done)
 
 Application event log - Hitesh
 
