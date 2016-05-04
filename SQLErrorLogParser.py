@@ -9,7 +9,7 @@ def GetSQLErrorLogs(startdate,enddate,rootdirectory, servernames, instancenames,
     #startdate = datetime.strptime(startdate,"%Y/%m/%d %H:%M")
     startdate=startdate.strftime("%Y-%m-%d %H:%M:%S")
     startdate = datetime.strptime(startdate,"%Y-%m-%d %H:%M:%S")
-    ignoreList=["DbMgrPartnerCommitPolicy","Log was backed up"]
+    ignoreList=["DbMgrPartnerCommitPolicy","Log was backed up","Login succeeded for user"]
 
     enddate=enddate.strftime("%Y-%m-%d %H:%M:%S")
     enddate = datetime.strptime(enddate,"%Y-%m-%d %H:%M:%S")

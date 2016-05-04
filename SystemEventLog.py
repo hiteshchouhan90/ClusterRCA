@@ -20,7 +20,8 @@ def Tabs(TextInput):
 # For now leaving the output formatting as it is
 
 def GetSystemLog(rootdirectory, servernames,outputfile,startdate, enddate):
-    SystemLogIgnoreList = ["entered the running state", "entered the stopped state."]
+    SystemLogIgnoreList = ["entered the running state", "entered the stopped state."
+                           , "connection request was received from a remote client application"]
 
 # First converting the date time to match the System Event Log format i.e. 01/26/2016 05:14:34 AM
     startdate = startdate.strftime("%m/%d/%Y %I:%M:%S %p")

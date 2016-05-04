@@ -1,6 +1,12 @@
 import msvcrt
 from ApplicationLogParser import GetApplicationLog
 import fnmatch
+
+import os
+import time
+from datetime import datetime, timedelta
+from os.path import basename
+
 from ClusterLogParser import GetClusterLogs
 from SystemInfo import GetSysInfo
 from SQLServerInfo import GetSQLInfo
@@ -12,23 +18,32 @@ from StorNetDrivers import GetStorageNetworkDrivers
 from ClusterDependencies import GetClusterDependencies
 from SP_Configure import GetSPConfigure
 import CreateFolders
-import os
-import time
-from datetime import datetime, timedelta
-from os.path import basename
 from SQLErrorLogParser import GetSQLErrorLogs
+import gui
+from gui import *
 
 
-print("Enter the input file name: ")
-inputfilename = input() or "C:\ClusterRCA\DB01.cab" # Adding the OR to avoid typing for now
+#inputfilename = input() or "C:\ClusterRCA\DB01.cab" # Adding the OR to avoid typing for now
+gui.load_GUI("first")
 
-filenameonly = basename(inputfilename)
+#inputfilename = load_GUI()
+print(gui.inputfilename)
+inputfilename = gui.inputfilename
+startdate=gui.startdate
+enddate= gui.enddate
+
+print(inputfilename,startdate,enddate)
+
+filenameonly = basename(gui.inputfilename)
 filenameonly = filenameonly[:filenameonly.find(".cab")]
 
 # Getting the time frame of the issue
-print("Enter the time frame of the issue in \"yyyy/mm/dd HH:mm\" format:")
-startdate = input("Start date:\n") or "2016/04/05 21:00"
-enddate = input("End date:\n") or "2016/04/05 22:00"
+# Commenting the below lines for GUI
+
+# startdate = input("Start date:\n") or "2016/02/24 05:00"
+# enddate = input("End date:\n") or "2016/02/24 08:00"
+
+# End comment
 
 # Adding/subtracting  two hours as buffer
 
