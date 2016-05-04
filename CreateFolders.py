@@ -3,6 +3,8 @@ import glob
 import shutil
 from os.path import basename
 from unzipfiles import unzipfile
+from gui import *
+import gui
 
 servernames = []
 
@@ -56,8 +58,12 @@ def CreateNextFolders(rootdirectory, FirstServerName, filenameonly):
             print("Folder " + servername + " exists. Not doing anything here")
         else:
             os.makedirs(rootdirectory + "/" + servername.upper())
-            print("Enter the path of the new zip file for server: " + servername.upper())
-            inputfilename = input() or "C:\ClusterRCA\DB02.cab"
+            # print("Enter the path of the new zip file for server: " + servername.upper())
+            # inputfilename = input() or "C:\ClusterRCA\DB02.cab"
+
+            gui.servername = servername.upper()
+            load_GUI("second")
+            inputfilename = gui.inputfilename
             unzipfile(inputfilename, rootdirectory + "/" + servername.upper())
             print("Created folder " + rootdirectory +  "/" + servername.upper())
 
