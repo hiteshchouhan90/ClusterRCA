@@ -20,7 +20,7 @@ def GetSysInfo(rootdirectory, servernames,outputfile):
         sysinfofile = glob.glob(rootdirectory + "/" + servername.upper() + "\*System_Information.txt")[0]
 
         start = 0
-        with open(sysinfofile, "r", encoding="utf-16") as file:
+        with open(sysinfofile, "r") as file:
             for line in file:
                 # The following lines have been added because we need the processor details after the word "Processor(s)"
                 if "Processor(s)" in line:

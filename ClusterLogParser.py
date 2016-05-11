@@ -50,7 +50,7 @@ def GetClusterLogs(rootdirectory,servernames,outputfile,startdate,enddate):
         Getting the time zone information from the one of the lines in System_Information.txt
 
        """
-        with open(sysInfoFile,"r",encoding="utf-16") as sysInfoFiledata:
+        with open(sysInfoFile,"r") as sysInfoFiledata:
             for line in sysInfoFiledata:
                 if line.__contains__('Time Zone:'):
                     timeZone=line
@@ -65,7 +65,7 @@ def GetClusterLogs(rootdirectory,servernames,outputfile,startdate,enddate):
                     newenddate=datetime.strptime(newenddate,"%Y/%m/%d-%H:%M:%S")
 
                     for path in logFilePath:
-                        with open(path,"r",encoding="utf-16") as logs:
+                        with open(path,"r") as logs:
                             outputfile.write("\n" + " ANALYZING CLUSTER LOG FOR SERVER" + str(servername) + "\n")
                             #newstartdate=datetime.strptime(str(newstartdate),"%Y/%m/%d-%H:%M:%S")
                             #newenddate=datetime.strptime(str(newstartdate),"%Y/%m/%d-%H:%M:%S")
